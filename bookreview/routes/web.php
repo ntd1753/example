@@ -68,6 +68,9 @@ Route::group(['prefix' => 'admin'], function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+//Kiểm tra post-manager
+
 Route::get('/media', [HomeController::class, 'media'])->name('media');
 Route::get('/add', [PostController::class, 'add'])->name('add');
 Route::post('/store', [PostController::class, 'store'])->name('store');
