@@ -29,7 +29,7 @@
 <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
 <script>
     tinymce.init({
-        selector: 'textarea',
+        selector: 'textarea#content',
         plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
@@ -39,6 +39,35 @@
             { value: 'Email', title: 'Email' },
         ],
         ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        file_picker_callback (callback, value, meta) {
+            let x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth
+            let y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight
+
+            tinymce.activeEditor.windowManager.openUrl({
+                url : '/file-manager/tinymce5',
+                title : 'Laravel File manager',
+                width : x * 0.8,
+                height : y * 0.8,
+                onMessage: (api, message) => {
+                    console.log(message)
+                    let url = message.content;  // Lấy ra url của file ảnh
+                    url = url.replace(/^.*\/\/[^\/]+/, ''); // Xóa domain ảnh
+                    console.log(url);
+                    message.content = url // Gán lại url cho ảnh
+                    callback(message.content, { text: message.text })
+                },
+
+            })}
+
+    });
+    tinymce.init({
+        selector: 'textarea#Seo',
+
+        height:300,
+        toolbar: 'undo redo',
+        content_css: false,
+        menu: false,
+        menubar: false,
     });
 </script>
 

@@ -40,3 +40,6 @@
 <script src="{{asset('backend/js/chart-custom.js')}}"></script>
 <!-- Custom JavaScript -->
 <script src="{{asset('backend/js/custom.js')}}"></script>
+<script>
+
+</script>
